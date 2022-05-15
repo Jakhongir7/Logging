@@ -2,6 +2,7 @@
 using BrainstormSessions.Core.Interfaces;
 using BrainstormSessions.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace BrainstormSessions.Controllers
 {
@@ -16,8 +17,11 @@ namespace BrainstormSessions.Controllers
 
         public async Task<IActionResult> Index(int? id)
         {
+            Log.Information("Session Index visited.");
+
             if (!id.HasValue)
             {
+                Log.Error("Id parameter was invalid.");
                 return RedirectToAction(actionName: nameof(Index),
                     controllerName: "Home");
             }
@@ -25,6 +29,7 @@ namespace BrainstormSessions.Controllers
             var session = await _sessionRepository.GetByIdAsync(id.Value);
             if (session == null)
             {
+                Log.Error("Session not found.");
                 return Content("Session not found.");
             }
 

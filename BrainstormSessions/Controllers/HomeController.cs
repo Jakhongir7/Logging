@@ -6,6 +6,7 @@ using BrainstormSessions.Core.Interfaces;
 using BrainstormSessions.Core.Model;
 using BrainstormSessions.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace BrainstormSessions.Controllers
 {
@@ -30,6 +31,8 @@ namespace BrainstormSessions.Controllers
                 IdeaCount = session.Ideas.Count
             });
 
+            Log.Information("Home Index visited.");
+
             return View(model);
         }
 
@@ -44,6 +47,7 @@ namespace BrainstormSessions.Controllers
         {
             if (!ModelState.IsValid)
             {
+                Log.Warning($"Model {model.SessionName} state was invalid.");
                 return BadRequest(ModelState);
             }
             else
@@ -53,7 +57,10 @@ namespace BrainstormSessions.Controllers
                     DateCreated = DateTimeOffset.Now,
                     Name = model.SessionName
                 });
+                Log.Debug($"Session {model.SessionName} was created.");
             }
+
+            Log.Information("Home Index visited.");
 
             return RedirectToAction(actionName: nameof(Index));
         }
