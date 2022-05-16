@@ -1,0 +1,9 @@
+{
+  "usernameEmail": "smtptest@gmail.com",
+  "toEmail": "bahodirov-jahongir@mail.ru",
+  "emailServer": "smtp.gmail.com",
+  "username": "smtptest@gmail.com",
+  "password": "smtptest",
+  "port": "465",
+  "subject": "BrainstormSession application logs"
+}
